@@ -4,7 +4,7 @@
 * https://github.com/google/diff-match-patch
 *
 * Based on the JavaScript implementation by Neil Fraser.
-* Ported to Lua by Duncan Cross.
+* Modified to be compatible with Lua 5.3 by Simon Spivey.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -19,16 +19,10 @@
 * limitations under the License.
 --]]
 
---[[
--- Lua 5.1 and earlier requires the external BitOp library.
--- This library is built-in from Lua 5.2 and later as 'bit32'.
-require 'bit'   -- <https://bitop.luajit.org/>
-local band, bor, lshift
-    = bit.band, bit.bor, bit.lshift
---]]
+local function band(x,y) return x & y end
+local function bor(x,y) return x | y end
+local function lshift(x,y) return x << y end
 
-local band, bor, lshift
-    = bit32.band, bit32.bor, bit32.lshift
 local type, setmetatable, ipairs, select
     = type, setmetatable, ipairs, select
 local unpack, tonumber, error
